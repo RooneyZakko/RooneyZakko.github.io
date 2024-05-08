@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Front-end vs. Back-end</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Front-end vs. Back-end</h1>
+    </header>
+    
+    <main>
+        <section id="frontend">
+            <h2>1- Front-end</h2>
+            <p>Front-end development omvat het bouwen van de gebruikersinterface van een website. Dit omvat HTML, CSS en JavaScript, waarmee de structuur, stijl en interactie van een webpagina worden bepaald.</p>
+            <p>Voorbeelden van front-end frameworks zijn onder andere React, Angular en Vue.js.</p>
+            <h2>Rode ballen</h2>
+            <p>De animaties toont bewegende ballen op een canvas, gemaakt met JavaScript.</p>
+        </section>
+
+        <!-- nnnnnnnnnnnnnnnnnnnnnnnnnnn -->
+
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+  <script>
+    class Ball {
+      constructor(canvas) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height; // Randomize initial y position
+        this.radius = 10;
+        this.speed = Math.random() * 3 + 1; // Random speed for each ball
+      }
+
+      update() {
+        this.y += this.speed;
+        if (this.y > this.canvas.height + this.radius) {
+          this.y = 0; // Reset y position to top when ball reaches bottom
+          this.x = Math.random() * this.canvas.width; // Randomize x position
+        }
+      }
+
+      draw() {
+        this.ctx.beginPath();
+        this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        this.ctx.fillStyle = 'red';
+        this.ctx.fill();
+        this.ctx.closePath();
+      }
+    }
+
+    // Main script
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const numBalls = 5; // Number of balls
+
+    const balls = [];
+    for (let i = 0; i < numBalls; i++) {
+      balls.push(new Ball(canvas));
+    }
+
+    function update() {
+      balls.forEach(ball => {
+        ball.update();
+      });
+    }
+
+    function render() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      balls.forEach(ball => {
+        ball.draw();
+      });
+    }
+
+    function tick() {
+      update();
+      render();
+      window.requestAnimationFrame(tick);
+    }
+
+    tick();
+  </script>
+        <!-- bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb -->
+        <section id="backend">
+            <h2>2- Back-end</h2>
+            <p>Back-end development gaat over het bouwen van de server-side van een website. Dit omvat het beheren van databases, het verwerken van gebruikersinvoer en het genereren van dynamische inhoud.</p>
+            <p>Populaire back-end programmeertalen zijn onder andere PHP, Python, Ruby en Node.js.</p>
+        </section>
+
+        <section id="quiz">
+            <h2>Quiz</h2>
+            <p>Test je kennis over front-end en back-end development!</p>
+            <button id="startQuiz">Start Quiz</button>
+            <div id="quizQuestions" style="display: none;">
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Gemaakt door Rooney Zakko 2024</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
